@@ -35,7 +35,6 @@
         table thead {
             background: #007BFF;
             color: #fff;
-            cursor: pointer;
         }
 
         table th, table td {
@@ -44,16 +43,8 @@
             border: 1px solid #ddd;
         }
 
-        select {
+        select, input[type="text"] {
             width: 100%;
-            padding: 5px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        input[type="text"] {
-            width: 90%;
             padding: 5px;
             font-size: 14px;
             border: 1px solid #ddd;
@@ -67,6 +58,12 @@
         tbody tr:hover {
             background: #eaeaea;
         }
+
+        .search-input {
+            width: 200px;
+            margin-left: 10px;
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -75,13 +72,28 @@
         <table>
             <thead>
                 <tr>
-                    <th data-column="date" data-order="asc">Date</th>
-                    <th>City</th>
-                    <th>ID</th>
-                    <th>Type</th>
+                    <th data-column="date" data-order="asc">Date <input type="text" class="search-input" placeholder="Search..." id="searchDate"></th>
+                    <th>City <select id="searchCity">
+                        <option value="">All</option>
+                        <option value="city1">City 1</option>
+                        <option value="city2">City 2</option>
+                        <option value="city3">City 3</option>
+                    </select></th>
+                    <th>ID <input type="text" class="search-input" placeholder="Search..." id="searchID"></th>
+                    <th>Type <select id="searchType">
+                        <option value="">All</option>
+                        <option value="type1">Type 1</option>
+                        <option value="type2">Type 2</option>
+                        <option value="type3">Type 3</option>
+                    </select></th>
                     <th>Opened At</th>
                     <th>Called At</th>
-                    <th>Status</th>
+                    <th>Status <select id="searchStatus">
+                        <option value="">All</option>
+                        <option value="injoignable">Injoignable</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="autres">Autres</option>
+                    </select></th>
                     <th>DCE2</th>
                     <th>RDV Time</th>
                     <th>Comment</th>
@@ -92,55 +104,74 @@
             <tbody>
                 <tr>
                     <td>2025-01-09</td>
-                    <td>
-                        <select>
-                            <option value="city1">City 1</option>
-                            <option value="city2" selected>City 2</option>
-                            <option value="city3">City 3</option>
-                        </select>
-                    </td>
-                    <td><input type="text" value="12345"></td>
-                    <td>
-                        <select>
-                            <option value="type1">Type 1</option>
-                            <option value="type2" selected>Type 2</option>
-                            <option value="type3">Type 3</option>
-                        </select>
-                    </td>
+                    <td>City 1</td>
+                    <td>12345</td>
+                    <td>Type 2</td>
                     <td>10:00</td>
                     <td>10:15</td>
-                    <td>
-                        <select class="editable-status">
-                            <option value="injoignable" selected>Injoignable</option>
-                            <option value="resolved">Resolved</option>
-                            <option value="autres">Autres</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option value="dce1">DCE1</option>
-                            <option value="dce2" selected>DCE2</option>
-                            <option value="dce3">DCE3</option>
-                        </select>
-                    </td>
+                    <td>Injoignable</td>
+                    <td>DCE2</td>
                     <td>11:00</td>
                     <td>Sample Comment</td>
-                    <td>
-                        <select>
-                            <option value="agency1">Agency 1</option>
-                            <option value="agency2" selected>Agency 2</option>
-                            <option value="agency3">Agency 3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option value="source1">Source 1</option>
-                            <option value="source2" selected>Source 2</option>
-                            <option value="source3">Source 3</option>
-                        </select>
-                    </td>
+                    <td>Agency 2</td>
+                    <td>Source 1</td>
                 </tr>
-                <!-- Add more rows as needed -->
+                <tr>
+                    <td>2025-01-10</td>
+                    <td>City 2</td>
+                    <td>12346</td>
+                    <td>Type 1</td>
+                    <td>10:30</td>
+                    <td>10:45</td>
+                    <td>Resolved</td>
+                    <td>DCE1</td>
+                    <td>11:30</td>
+                    <td>Another Comment</td>
+                    <td>Agency 1</td>
+                    <td>Source 2</td>
+                </tr>
+                <tr>
+                    <td>2025-01-11</td>
+                    <td>City 3</td>
+                    <td>12347</td>
+                    <td>Type 3</td>
+                    <td>11:00</td>
+                    <td>11:15</td>
+                    <td>Autres</td>
+                    <td>DCE2</td>
+                    <td>12:00</td>
+                    <td>More Comments</td>
+                    <td>Agency 3</td>
+                    <td>Source 3</td>
+                </tr>
+                <tr>
+                    <td>2025-01-12</td>
+                    <td>City 1</td>
+                    <td>12348</td>
+                    <td>Type 2</td>
+                    <td>11:30</td>
+                    <td>11:45</td>
+                    <td>Resolved</td>
+                    <td>DCE1</td>
+                    <td>12:30</td>
+                    <td>Some Comment</td>
+                    <td>Agency 2</td>
+                    <td>Source 1</td>
+                </tr>
+                <tr>
+                    <td>2025-01-13</td>
+                    <td>City 2</td>
+                    <td>12349</td>
+                    <td>Type 3</td>
+                    <td>12:00</td>
+                    <td>12:15</td>
+                    <td>Injoignable</td>
+                    <td>DCE3</td>
+                    <td>13:00</td>
+                    <td>Final Comment</td>
+                    <td>Agency 3</td>
+                    <td>Source 2</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -175,14 +206,38 @@
                 });
             });
 
-            // Editable dropdown functionality for Status
-            const editableStatuses = document.querySelectorAll('.editable-status');
-            editableStatuses.forEach(dropdown => {
-                dropdown.addEventListener('change', (event) => {
-                    const newValue = event.target.value;
-                    console.log(Updated status: ${newValue});
+            // Search functionality for columns
+            document.getElementById('searchDate').addEventListener('input', filterTable);
+            document.getElementById('searchCity').addEventListener('change', filterTable);
+            document.getElementById('searchID').addEventListener('input', filterTable);
+            document.getElementById('searchType').addEventListener('change', filterTable);
+            document.getElementById('searchStatus').addEventListener('change', filterTable);
+
+            function filterTable() {
+                const searchDate = document.getElementById('searchDate').value.toLowerCase();
+                const searchCity = document.getElementById('searchCity').value.toLowerCase();
+                const searchID = document.getElementById('searchID').value.toLowerCase();
+                const searchType = document.getElementById('searchType').value.toLowerCase();
+                const searchStatus = document.getElementById('searchStatus').value.toLowerCase();
+
+                const rows = document.querySelectorAll('tbody tr');
+                rows.forEach(row => {
+                    const date = row.cells[0].textContent.toLowerCase();
+                    const city = row.cells[1].textContent.toLowerCase();
+                    const id = row.cells[2].textContent.toLowerCase();
+                    const type = row.cells[3].textContent.toLowerCase();
+                    const status = row.cells[6].textContent.toLowerCase();
+
+                    const matches = (
+                        date.includes(searchDate) &&
+                        city.includes(searchCity) &&
+                        id.includes(searchID) &&
+                        type.includes(searchType) &&
+                        status.includes(searchStatus)
+                    );
+                    row.style.display = matches ? '' : 'none';
                 });
-            });
+            }
         });
     </script>
 </body>
