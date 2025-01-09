@@ -70,6 +70,14 @@
             border-radius: 4px;
         }
 
+        select {
+            width: 100%;
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
         tbody tr:nth-child(even) {
             background: #f4f4f4;
         }
@@ -101,6 +109,9 @@
                     <th>Opened At</th>
                     <th>Called At</th>
                     <th>Status</th>
+                    <th>DCE2</th>
+                    <th>RDV Time</th>
+                    <th>Comment</th>
                     <th>Agency</th>
                     <th>Source</th>
                 </tr>
@@ -109,58 +120,91 @@
                 <!-- Dummy rows -->
                 <tr data-id="1" data-phone="0626063021">
                     <td>2025-01-08</td>
-                    <td>City 1</td>
+                    <td>
+                        <select>
+                            <option value="city1">City 1</option>
+                            <option value="city2" selected>City 2</option>
+                            <option value="city3">City 3</option>
+                        </select>
+                    </td>
                     <td>1</td>
-                    <td>Type A</td>
+                    <td>
+                        <select>
+                            <option value="type1">Type A</option>
+                            <option value="type2" selected>Type B</option>
+                            <option value="type3">Type C</option>
+                        </select>
+                    </td>
                     <td>10:00</td>
-                    <td>10:30</td>
+                    <td>10:15</td>
                     <td contenteditable="true">In Progress</td>
-                    <td>Agency X</td>
-                    <td>Source 1</td>
+                    <td>
+                        <select>
+                            <option value="dce1">DCE1</option>
+                            <option value="dce2" selected>DCE2</option>
+                            <option value="dce3">DCE3</option>
+                        </select>
+                    </td>
+                    <td>11:00</td>
+                    <td>Sample Comment</td>
+                    <td>
+                        <select>
+                            <option value="agency1">Agency 1</option>
+                            <option value="agency2" selected>Agency 2</option>
+                            <option value="agency3">Agency 3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option value="source1">Source 1</option>
+                            <option value="source2" selected>Source 2</option>
+                            <option value="source3">Source 3</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr data-id="2" data-phone="0678078078">
                     <td>2025-01-09</td>
-                    <td>City 2</td>
+                    <td>
+                        <select>
+                            <option value="city1">City 1</option>
+                            <option value="city2" selected>City 2</option>
+                            <option value="city3">City 3</option>
+                        </select>
+                    </td>
                     <td>2</td>
-                    <td>Type B</td>
+                    <td>
+                        <select>
+                            <option value="type1">Type A</option>
+                            <option value="type2" selected>Type B</option>
+                            <option value="type3">Type C</option>
+                        </select>
+                    </td>
                     <td>11:00</td>
-                    <td>11:15</td>
+                    <td>11:30</td>
                     <td contenteditable="true">Resolved</td>
-                    <td>Agency Y</td>
-                    <td>Source 2</td>
-                </tr>
-                <tr data-id="3" data-phone="0655044002">
-                    <td>2025-01-07</td>
-                    <td>City 3</td>
-                    <td>3</td>
-                    <td>Type C</td>
+                    <td>
+                        <select>
+                            <option value="dce1">DCE1</option>
+                            <option value="dce2">DCE2</option>
+                            <option value="dce3" selected>DCE3</option>
+                        </select>
+                    </td>
                     <td>12:00</td>
-                    <td>12:30</td>
-                    <td contenteditable="true">Pending</td>
-                    <td>Agency Z</td>
-                    <td>Source 3</td>
-                </tr>
-                <tr data-id="4" data-phone="0634043432">
-                    <td>2025-01-10</td>
-                    <td>City 4</td>
-                    <td>4</td>
-                    <td>Type A</td>
-                    <td>09:00</td>
-                    <td>09:15</td>
-                    <td contenteditable="true">Completed</td>
-                    <td>Agency W</td>
-                    <td>Source 4</td>
-                </tr>
-                <tr data-id="5" data-phone="0642099999">
-                    <td>2025-01-11</td>
-                    <td>City 5</td>
-                    <td>5</td>
-                    <td>Type B</td>
-                    <td>13:00</td>
-                    <td>13:30</td>
-                    <td contenteditable="true">Cancelled</td>
-                    <td>Agency V</td>
-                    <td>Source 5</td>
+                    <td>Another Comment</td>
+                    <td>
+                        <select>
+                            <option value="agency1" selected>Agency 1</option>
+                            <option value="agency2">Agency 2</option>
+                            <option value="agency3">Agency 3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option value="source1">Source 1</option>
+                            <option value="source2">Source 2</option>
+                            <option value="source3" selected>Source 3</option>
+                        </select>
+                    </td>
                 </tr>
             </tbody>
         </table>
