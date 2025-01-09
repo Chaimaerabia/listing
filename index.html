@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DCE2</title>
+    <title>Sortable Editable Table</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,7 +18,7 @@
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+            max-width: 1200px;
         }
 
         h1 {
@@ -35,6 +35,7 @@
         table thead {
             background: #007BFF;
             color: #fff;
+            cursor: pointer;
         }
 
         table th, table td {
@@ -45,6 +46,14 @@
 
         select {
             width: 100%;
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="text"] {
+            width: 90%;
             padding: 5px;
             font-size: 14px;
             border: 1px solid #ddd;
@@ -62,72 +71,116 @@
 </head>
 <body>
     <div class="container">
-        <h1>Editable Table with Status</h1>
+        <h1>Sortable Editable Table</h1>
         <table>
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Name</th>
+                    <th data-column="date" data-order="asc">Date</th>
+                    <th>City</th>
+                    <th>ID</th>
+                    <th>Type</th>
                     <th>Opened At</th>
                     <th>Called At</th>
-                    <th>Rendez-vous Time</th>
                     <th>Status</th>
-                    <th>Editable Status</th>
+                    <th>DCE2</th>
+                    <th>RDV Time</th>
                     <th>Comment</th>
+                    <th>Agency</th>
+                    <th>Source</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Jan 9, 2025</td>
-                    <td>Example Name</td>
+                    <td>2025-01-09</td>
+                    <td>
+                        <select>
+                            <option value="city1">City 1</option>
+                            <option value="city2" selected>City 2</option>
+                            <option value="city3">City 3</option>
+                        </select>
+                    </td>
+                    <td><input type="text" value="12345"></td>
+                    <td>
+                        <select>
+                            <option value="type1">Type 1</option>
+                            <option value="type2" selected>Type 2</option>
+                            <option value="type3">Type 3</option>
+                        </select>
+                    </td>
                     <td>10:00</td>
                     <td>10:15</td>
-                    <td>11:00</td>
-                    <td>Injoignable</td>
                     <td>
                         <select class="editable-status">
                             <option value="injoignable" selected>Injoignable</option>
+                            <option value="resolved">Resolved</option>
                             <option value="autres">Autres</option>
-                            <option value="resolved">Resolved</option>
                         </select>
                     </td>
-                    <td>Sample Comment</td>
-                </tr>
-                <tr>
-                    <td>Jan 10, 2025</td>
-                    <td>Another Name</td>
-                    <td>10:30</td>
-                    <td>10:45</td>
-                    <td>11:15</td>
-                    <td>Autres</td>
                     <td>
-                        <select class="editable-status">
-                            <option value="injoignable">Injoignable</option>
-                            <option value="autres" selected>Autres</option>
-                            <option value="resolved">Resolved</option>
+                        <select>
+                            <option value="dce1">DCE1</option>
+                            <option value="dce2" selected>DCE2</option>
+                            <option value="dce3">DCE3</option>
                         </select>
                     </td>
-                    <td>Another Comment</td>
+                    <td>11:00</td>
+                    <td>Sample Comment</td>
+                    <td>
+                        <select>
+                            <option value="agency1">Agency 1</option>
+                            <option value="agency2" selected>Agency 2</option>
+                            <option value="agency3">Agency 3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option value="source1">Source 1</option>
+                            <option value="source2" selected>Source 2</option>
+                            <option value="source3">Source 3</option>
+                        </select>
+                    </td>
                 </tr>
+                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Select all editable dropdowns
-            const editableStatuses = document.querySelectorAll('.editable-status');
 
-            // Add event listener to capture changes
-            editableStatuses.forEach((dropdown) => {
+    <script>
+        // Sorting functionality
+        document.addEventListener("DOMContentLoaded", () => {
+            const headers = document.querySelectorAll("thead th[data-column]");
+            headers.forEach(header => {
+                header.addEventListener("click", () => {
+                    const table = header.closest("table");
+                    const tbody = table.querySelector("tbody");
+                    const rows = Array.from(tbody.querySelectorAll("tr"));
+                    const column = header.getAttribute("data-column");
+                    const order = header.getAttribute("data-order");
+
+                    // Determine sort order
+                    const isAscending = order === "asc";
+                    header.setAttribute("data-order", isAscending ? "desc" : "asc");
+
+                    // Sort rows
+                    rows.sort((a, b) => {
+                        const aValue = a.cells[0].textContent.trim();
+                        const bValue = b.cells[0].textContent.trim();
+                        return isAscending
+                            ? aValue.localeCompare(bValue)
+                            : bValue.localeCompare(aValue);
+                    });
+
+                    // Append sorted rows back to tbody
+                    rows.forEach(row => tbody.appendChild(row));
+                });
+            });
+
+            // Editable dropdown functionality for Status
+            const editableStatuses = document.querySelectorAll('.editable-status');
+            editableStatuses.forEach(dropdown => {
                 dropdown.addEventListener('change', (event) => {
                     const newValue = event.target.value;
-                    const row = event.target.closest('tr');
-                    const statusCell = row.querySelector('td:nth-child(6)'); // Get the "Status" column
-
-                    // Update the "Status" column with the selected value
-                    statusCell.textContent = newValue;
-
-                    console.log(Row updated: New status = ${newValue});
+                    console.log(Updated status: ${newValue});
                 });
             });
         });
