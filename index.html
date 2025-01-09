@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sortable Editable Table</title>
+    <title>Enhanced Table</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background: #f9f9f9;
         }
 
@@ -43,7 +41,28 @@
             border: 1px solid #ddd;
         }
 
-        select, input[type="text"] {
+        table th {
+            position: relative;
+        }
+
+        .sort-buttons {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+        }
+
+        .sort-buttons button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
             width: 100%;
             padding: 5px;
             font-size: 14px;
@@ -58,186 +77,130 @@
         tbody tr:hover {
             background: #eaeaea;
         }
-
-        .search-input {
-            width: 200px;
-            margin-left: 10px;
-            padding: 5px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Sortable Editable Table</h1>
+        <h1>Enhanced Table</h1>
         <table>
             <thead>
                 <tr>
-                    <th data-column="date" data-order="asc">Date <input type="text" class="search-input" placeholder="Search..." id="searchDate"></th>
-                    <th>City <select id="searchCity">
-                        <option value="">All</option>
-                        <option value="city1">City 1</option>
-                        <option value="city2">City 2</option>
-                        <option value="city3">City 3</option>
-                    </select></th>
-                    <th>ID <input type="text" class="search-input" placeholder="Search..." id="searchID"></th>
-                    <th>Type <select id="searchType">
-                        <option value="">All</option>
-                        <option value="type1">Type 1</option>
-                        <option value="type2">Type 2</option>
-                        <option value="type3">Type 3</option>
-                    </select></th>
+                    <th>
+                        Date
+                        <div class="sort-buttons">
+                            <button class="sort-up">▲</button>
+                            <button class="sort-down">▼</button>
+                        </div>
+                    </th>
+                    <th>City</th>
+                    <th>
+                        ID
+                        <input type="text" id="search-id" placeholder="Search by Phone">
+                    </th>
+                    <th>Type</th>
                     <th>Opened At</th>
                     <th>Called At</th>
-                    <th>Status <select id="searchStatus">
-                        <option value="">All</option>
-                        <option value="injoignable">Injoignable</option>
-                        <option value="resolved">Resolved</option>
-                        <option value="autres">Autres</option>
-                    </select></th>
-                    <th>DCE2</th>
-                    <th>RDV Time</th>
-                    <th>Comment</th>
+                    <th>Status</th>
                     <th>Agency</th>
                     <th>Source</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2025-01-09</td>
+                <!-- Dummy rows -->
+                <tr data-id="1" data-phone="0626063021">
+                    <td>2025-01-08</td>
                     <td>City 1</td>
-                    <td>12345</td>
-                    <td>Type 2</td>
+                    <td>1</td>
+                    <td>Type A</td>
                     <td>10:00</td>
-                    <td>10:15</td>
-                    <td>Injoignable</td>
-                    <td>DCE2</td>
-                    <td>11:00</td>
-                    <td>Sample Comment</td>
-                    <td>Agency 2</td>
+                    <td>10:30</td>
+                    <td contenteditable="true">In Progress</td>
+                    <td>Agency X</td>
                     <td>Source 1</td>
                 </tr>
-                <tr>
-                    <td>2025-01-10</td>
+                <tr data-id="2" data-phone="0678078078">
+                    <td>2025-01-09</td>
                     <td>City 2</td>
-                    <td>12346</td>
-                    <td>Type 1</td>
-                    <td>10:30</td>
-                    <td>10:45</td>
-                    <td>Resolved</td>
-                    <td>DCE1</td>
-                    <td>11:30</td>
-                    <td>Another Comment</td>
-                    <td>Agency 1</td>
-                    <td>Source 2</td>
-                </tr>
-                <tr>
-                    <td>2025-01-11</td>
-                    <td>City 3</td>
-                    <td>12347</td>
-                    <td>Type 3</td>
+                    <td>2</td>
+                    <td>Type B</td>
                     <td>11:00</td>
                     <td>11:15</td>
-                    <td>Autres</td>
-                    <td>DCE2</td>
+                    <td contenteditable="true">Resolved</td>
+                    <td>Agency Y</td>
+                    <td>Source 2</td>
+                </tr>
+                <tr data-id="3" data-phone="0655044002">
+                    <td>2025-01-07</td>
+                    <td>City 3</td>
+                    <td>3</td>
+                    <td>Type C</td>
                     <td>12:00</td>
-                    <td>More Comments</td>
-                    <td>Agency 3</td>
+                    <td>12:30</td>
+                    <td contenteditable="true">Pending</td>
+                    <td>Agency Z</td>
                     <td>Source 3</td>
                 </tr>
-                <tr>
-                    <td>2025-01-12</td>
-                    <td>City 1</td>
-                    <td>12348</td>
-                    <td>Type 2</td>
-                    <td>11:30</td>
-                    <td>11:45</td>
-                    <td>Resolved</td>
-                    <td>DCE1</td>
-                    <td>12:30</td>
-                    <td>Some Comment</td>
-                    <td>Agency 2</td>
-                    <td>Source 1</td>
+                <tr data-id="4" data-phone="0634043432">
+                    <td>2025-01-10</td>
+                    <td>City 4</td>
+                    <td>4</td>
+                    <td>Type A</td>
+                    <td>09:00</td>
+                    <td>09:15</td>
+                    <td contenteditable="true">Completed</td>
+                    <td>Agency W</td>
+                    <td>Source 4</td>
                 </tr>
-                <tr>
-                    <td>2025-01-13</td>
-                    <td>City 2</td>
-                    <td>12349</td>
-                    <td>Type 3</td>
-                    <td>12:00</td>
-                    <td>12:15</td>
-                    <td>Injoignable</td>
-                    <td>DCE3</td>
+                <tr data-id="5" data-phone="0642099999">
+                    <td>2025-01-11</td>
+                    <td>City 5</td>
+                    <td>5</td>
+                    <td>Type B</td>
                     <td>13:00</td>
-                    <td>Final Comment</td>
-                    <td>Agency 3</td>
-                    <td>Source 2</td>
+                    <td>13:30</td>
+                    <td contenteditable="true">Cancelled</td>
+                    <td>Agency V</td>
+                    <td>Source 5</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <script>
-        // Sorting functionality
         document.addEventListener("DOMContentLoaded", () => {
-            const headers = document.querySelectorAll("thead th[data-column]");
-            headers.forEach(header => {
-                header.addEventListener("click", () => {
-                    const table = header.closest("table");
-                    const tbody = table.querySelector("tbody");
-                    const rows = Array.from(tbody.querySelectorAll("tr"));
-                    const column = header.getAttribute("data-column");
-                    const order = header.getAttribute("data-order");
+            const tbody = document.querySelector("tbody");
 
-                    // Determine sort order
-                    const isAscending = order === "asc";
-                    header.setAttribute("data-order", isAscending ? "desc" : "asc");
+            // Sorting functionality for date column
+            const sortUpButton = document.querySelector(".sort-up");
+            const sortDownButton = document.querySelector(".sort-down");
 
-                    // Sort rows
-                    rows.sort((a, b) => {
-                        const aValue = a.cells[0].textContent.trim();
-                        const bValue = b.cells[0].textContent.trim();
-                        return isAscending
-                            ? aValue.localeCompare(bValue)
-                            : bValue.localeCompare(aValue);
-                    });
+            sortUpButton.addEventListener("click", () => sortTable(true));
+            sortDownButton.addEventListener("click", () => sortTable(false));
 
-                    // Append sorted rows back to tbody
-                    rows.forEach(row => tbody.appendChild(row));
+            function sortTable(ascending) {
+                const rows = Array.from(tbody.querySelectorAll("tr"));
+                rows.sort((a, b) => {
+                    const dateA = new Date(a.cells[0].textContent.trim());
+                    const dateB = new Date(b.cells[0].textContent.trim());
+                    return ascending ? dateA - dateB : dateB - dateA;
+                });
+                rows.forEach(row => tbody.appendChild(row));
+            }
+
+            // Search functionality by phone number
+            const searchInput = document.getElementById("search-id");
+            searchInput.addEventListener("input", () => {
+                const searchValue = searchInput.value.trim();
+                const rows = tbody.querySelectorAll("tr");
+                rows.forEach(row => {
+                    const phone = row.dataset.phone;
+                    if (phone && phone.includes(searchValue)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
                 });
             });
-
-            // Search functionality for columns
-            document.getElementById('searchDate').addEventListener('input', filterTable);
-            document.getElementById('searchCity').addEventListener('change', filterTable);
-            document.getElementById('searchID').addEventListener('input', filterTable);
-            document.getElementById('searchType').addEventListener('change', filterTable);
-            document.getElementById('searchStatus').addEventListener('change', filterTable);
-
-            function filterTable() {
-                const searchDate = document.getElementById('searchDate').value.toLowerCase();
-                const searchCity = document.getElementById('searchCity').value.toLowerCase();
-                const searchID = document.getElementById('searchID').value.toLowerCase();
-                const searchType = document.getElementById('searchType').value.toLowerCase();
-                const searchStatus = document.getElementById('searchStatus').value.toLowerCase();
-
-                const rows = document.querySelectorAll('tbody tr');
-                rows.forEach(row => {
-                    const date = row.cells[0].textContent.toLowerCase();
-                    const city = row.cells[1].textContent.toLowerCase();
-                    const id = row.cells[2].textContent.toLowerCase();
-                    const type = row.cells[3].textContent.toLowerCase();
-                    const status = row.cells[6].textContent.toLowerCase();
-
-                    const matches = (
-                        date.includes(searchDate) &&
-                        city.includes(searchCity) &&
-                        id.includes(searchID) &&
-                        type.includes(searchType) &&
-                        status.includes(searchStatus)
-                    );
-                    row.style.display = matches ? '' : 'none';
-                });
-            }
         });
     </script>
 </body>
