@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Table</title>
+    <title>Enhanced Table with Sorting and Dropdowns</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,6 +45,13 @@
             position: relative;
         }
 
+        .header-dropdown, .header-input {
+            width: 100%;
+            font-size: 14px;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
         .sort-buttons {
             display: flex;
             flex-direction: column;
@@ -62,28 +69,23 @@
             cursor: pointer;
         }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 5px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        select {
-            width: 100%;
-            padding: 5px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
         tbody tr:nth-child(even) {
             background: #f4f4f4;
         }
 
         tbody tr:hover {
             background: #eaeaea;
+        }
+
+        .editable {
+            background: #ffffe0; /* Light yellow to indicate editable */
+            border: 1px dashed #aaa; /* Dotted border to show editability */
+            cursor: text;
+        }
+
+        .editable:focus {
+            outline: none;
+            background: #fff7bb;
         }
     </style>
 </head>
@@ -100,111 +102,99 @@
                             <button class="sort-down">▼</button>
                         </div>
                     </th>
-                    <th>City</th>
+                    <th>
+                        City
+                        <select class="header-dropdown">
+                            <option value="">All</option>
+                            <option value="city1">City 1</option>
+                            <option value="city2">City 2</option>
+                            <option value="city3">City 3</option>
+                        </select>
+                    </th>
                     <th>
                         ID
-                        <input type="text" id="search-id" placeholder="Search by Phone">
+                        <input type="text" id="search-id" placeholder="Search by Phone" class="header-input">
                     </th>
-                    <th>Type</th>
+                    <th>
+                        Type
+                        <select class="header-dropdown">
+                            <option value="">All</option>
+                            <option value="type1">Type A</option>
+                            <option value="type2">Type B</option>
+                            <option value="type3">Type C</option>
+                        </select>
+                    </th>
                     <th>Opened At</th>
                     <th>Called At</th>
-                    <th>Status</th>
-                    <th>DCE2</th>
+                    <th>
+                        Status
+                        <select class="header-dropdown">
+                            <option value="">All</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </th>
+                    <th>
+                        DCE2
+                        <select class="header-dropdown">
+                            <option value="">All</option>
+                            <option value="dce1">DCE1</option>
+                            <option value="dce2">DCE2</option>
+                            <option value="dce3">DCE3</option>
+                        </select>
+                    </th>
                     <th>RDV Time</th>
                     <th>Comment</th>
-                    <th>Agency</th>
-                    <th>Source</th>
+                    <th>
+                        Agency
+                        <select class="header-dropdown">
+                            <option value="">All</option>
+                            <option value="agency1">Agency 1</option>
+                            <option value="agency2">Agency 2</option>
+                            <option value="agency3">Agency 3</option>
+                        </select>
+                    </th>
+                    <th>
+                        Source
+                        <select class="header-dropdown">
+                            <option value="">All</option>
+                            <option value="source1">Source 1</option>
+                            <option value="source2">Source 2</option>
+                            <option value="source3">Source 3</option>
+                        </select>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Dummy rows -->
                 <tr data-id="1" data-phone="0626063021">
                     <td>2025-01-08</td>
-                    <td>
-                        <select>
-                            <option value="city1">City 1</option>
-                            <option value="city2" selected>City 2</option>
-                            <option value="city3">City 3</option>
-                        </select>
-                    </td>
+                    <td>City 2</td>
                     <td>1</td>
-                    <td>
-                        <select>
-                            <option value="type1">Type A</option>
-                            <option value="type2" selected>Type B</option>
-                            <option value="type3">Type C</option>
-                        </select>
-                    </td>
+                    <td>Type B</td>
                     <td>10:00</td>
                     <td>10:15</td>
-                    <td contenteditable="true">In Progress</td>
-                    <td>
-                        <select>
-                            <option value="dce1">DCE1</option>
-                            <option value="dce2" selected>DCE2</option>
-                            <option value="dce3">DCE3</option>
-                        </select>
-                    </td>
+                    <td class="editable" contenteditable="true">In Progress</td>
+                    <td>DCE2</td>
                     <td>11:00</td>
                     <td>Sample Comment</td>
-                    <td>
-                        <select>
-                            <option value="agency1">Agency 1</option>
-                            <option value="agency2" selected>Agency 2</option>
-                            <option value="agency3">Agency 3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option value="source1">Source 1</option>
-                            <option value="source2" selected>Source 2</option>
-                            <option value="source3">Source 3</option>
-                        </select>
-                    </td>
+                    <td>Agency 2</td>
+                    <td>Source 2</td>
                 </tr>
                 <tr data-id="2" data-phone="0678078078">
                     <td>2025-01-09</td>
-                    <td>
-                        <select>
-                            <option value="city1">City 1</option>
-                            <option value="city2" selected>City 2</option>
-                            <option value="city3">City 3</option>
-                        </select>
-                    </td>
+                    <td>City 2</td>
                     <td>2</td>
-                    <td>
-                        <select>
-                            <option value="type1">Type A</option>
-                            <option value="type2" selected>Type B</option>
-                            <option value="type3">Type C</option>
-                        </select>
-                    </td>
+                    <td>Type B</td>
                     <td>11:00</td>
                     <td>11:30</td>
-                    <td contenteditable="true">Resolved</td>
-                    <td>
-                        <select>
-                            <option value="dce1">DCE1</option>
-                            <option value="dce2">DCE2</option>
-                            <option value="dce3" selected>DCE3</option>
-                        </select>
-                    </td>
+                    <td class="editable" contenteditable="true">Resolved</td>
+                    <td>DCE3</td>
                     <td>12:00</td>
                     <td>Another Comment</td>
-                    <td>
-                        <select>
-                            <option value="agency1" selected>Agency 1</option>
-                            <option value="agency2">Agency 2</option>
-                            <option value="agency3">Agency 3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option value="source1">Source 1</option>
-                            <option value="source2">Source 2</option>
-                            <option value="source3" selected>Source 3</option>
-                        </select>
-                    </td>
+                    <td>Agency 1</td>
+                    <td>Source 3</td>
                 </tr>
             </tbody>
         </table>
